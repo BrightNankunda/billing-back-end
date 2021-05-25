@@ -4,7 +4,11 @@
   "description": "Billing Software",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "front-install": "npm install --prefix billing-front-end",
+    "start": "nodemon index.js",
+    "front": "cd .. && cd billing-front-end && npm start",
+    "dev": "concurrently \"npm run start\" \" npm run front\" "
   },
   "keywords": [
     "Billing",
@@ -15,10 +19,16 @@
   "author": "Nankunda Bright",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^6.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^8.4.0",
     "mongoose": "^5.12.10"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "nodemon": "^2.0.7"
   }
 }
