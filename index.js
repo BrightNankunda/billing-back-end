@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 const app = express();
 const BillerRoutes = require('./Routes/BillerRoutes')
@@ -26,6 +27,7 @@ mongoose.connect(mongodbUrl, {
 
 //THIRD PARTY MIDDLEWARE
 app.use(express.json())
+app.use(cors())
 
 //ROUTES MIDDLEWARE
 app.use('/api/bill', BillerRoutes)

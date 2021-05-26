@@ -10,24 +10,22 @@ exports.getAllBills = async (req, res) => {
 exports.postANewBill = (req, res) => {
 
    const {
-      property, 
+      propertyType, 
       scale, 
       advocate, 
       landValue, 
-      registered, 
       total
    } = req.body;
 
       const newSchema = new Bill({
-         property, 
+         propertyType, 
          scale, 
          advocate, 
-         landValue, 
-         registered, 
+         landValue,  
          total
       }).save()
       .then(response => {
-         res.json(response.data)
+         res.json(response)
          console.log(response)
       })
       .catch(err => {
