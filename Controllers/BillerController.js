@@ -8,7 +8,7 @@ exports.getAllBills = async (req, res) => {
 }
 
 exports.postANewBill = (req, res) => {
-
+   // res.json(req.body)
    const {
       propertyType, 
       scale, 
