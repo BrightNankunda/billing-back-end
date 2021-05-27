@@ -14,6 +14,7 @@ exports.postANewBill = (req, res) => {
       scale, 
       advocate, 
       landValue, 
+      registered,
       total
    } = req.body;
 
@@ -22,6 +23,7 @@ exports.postANewBill = (req, res) => {
          scale, 
          advocate, 
          landValue,  
+         registered,
          total
       }).save()
       .then(response => {

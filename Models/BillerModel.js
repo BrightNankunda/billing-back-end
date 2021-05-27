@@ -6,7 +6,7 @@ const BillSchema = new Schema({
    scale: {type: Number, required: true},
    advocate: {type: Number, required: true},
    landValue: {type: Number, required: true},
-   // registered: {type: Number, required: true},
+   registered: {type: Number, required: true},
    total: {type: Number, required: true}
 })
 
