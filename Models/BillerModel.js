@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const BillSchema = new Schema({
    propertyType: { type: String, required: true},
-   scale: {type: Number, required: true},
+   scaleOrRentalType: {type: Number, required: true},
    advocate: {type: Number, required: true},
    landValue: {type: Number, required: true},
    registered: {type: Number, required: true},

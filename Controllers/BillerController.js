@@ -14,12 +14,13 @@ exports.postANewBill = (req, res) => {
       advocate, 
       landValue, 
       registered,
+      rentalType,
       total
    } = req.body;
 
       const newSchema = new Bill({
          propertyType, 
-         scale, 
+         scaleOrRentalType: scale || rentalType, 
          advocate, 
          landValue,  
          registered,
