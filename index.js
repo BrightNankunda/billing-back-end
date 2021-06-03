@@ -4,6 +4,7 @@ const cors = require('cors')
 
 const app = express();
 const BillerRoutes = require('./Routes/BillerRoutes')
+const UserRoutes = require('./Routes/UserRoutes')
 
 const mongodbUrl = "mongodb://localhost/biller"
 
@@ -31,5 +32,6 @@ app.use(cors())
 
 //ROUTES MIDDLEWARE
 app.use('/api/bill', BillerRoutes)
+app.use('/api/user', UserRoutes)
 
 app.get('/', (req, res) => {res.end('Biller')})
