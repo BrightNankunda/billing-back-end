@@ -5,11 +5,11 @@ exports.RegisterUser = async (req, res) => {
 
    const {email, password} = req.body
    try {
-      // const userAlreadyExists = await User.find({email})
-      // if(userAlreadyExists) {
-      //    res.json('User Already Exists')
-      //    return
-      // }
+      const userAlreadyExists = await User.findOne({email})
+      if(userAlreadyExists) {
+         res.json('User Already Exists')
+         return
+      }
       const newUser = new User({email, password})
       const SavedUser = await newUser.save()
       res.json(SavedUser)
@@ -20,7 +20,7 @@ exports.RegisterUser = async (req, res) => {
 
 exports.LoginUser = async(req, res) => {
    const {email, password} = req.body
-   const userExists = await User.find({email})
+   const userExists = await User.findOne({email})
    if(userExists.length > 0) {
       console.log(userExists.length)
       console.log('User Seen', userExists)
