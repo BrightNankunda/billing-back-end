@@ -1,22 +1,23 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const dotenv = require('dotenv')
 
 const app = express();
 const BillerRoutes = require('./Routes/BillerRoutes')
 const UserRoutes = require('./Routes/UserRoutes')
 
-const mongodbUrl = "mongodb://localhost/biller"
+dotenv.config()
 
 const port = process.env.PORT || 7000;
 
-mongoose.connect(mongodbUrl, { 
+mongoose.connect(process.env.MONGODBURL || 'mongodb://localhost/biller', {//process.env.MONGODBURL, { 
    useUnifiedTopology: true, 
    useNewUrlParser: true, 
    useCreateIndex:true
 })
 .then(() => {
-   console.log('Connected to the MongoDB');
+   console.log('Connected to port 7000');
    return app.listen(port);
 })
 .then(() => {
