@@ -11,12 +11,15 @@ exports.RegisterUser = async (req, res) => {
    try {
       const userAlreadyExists = await User.findOne({email})
       if(userAlreadyExists) {
-         res.json('User Already Exists')
+         res.json('USER ALREADY EXISTS')
          return
       }
       const newUser = new User({email, password})
       const SavedUser = await newUser.save()
-      res.json(generateAccessToken(SavedUser))
+      res.json({
+         SavedUser, 
+         token: generateAccessToken(SavedUser)
+      })
    } catch(err) {
       console.log(err.message)
    }
@@ -24,13 +27,15 @@ exports.RegisterUser = async (req, res) => {
 
 exports.LoginUser = async(req, res) => {
    const {email, password} = req.body
-   const userExists = await User.findOne({email})
-   if(userExists.length > 0) {
-      console.log(userExists.length)
-      console.log('User Seen', userExists)
-      
+   const foundUser = await User.findOne({email})
+   const isValid = await foundUser.isPasswordValid(password)
+   if(foundUser && isValid) {
+      res.json({
+         user, 
+         token: generateAccessToken(userExists)
+      })
    } else {
-      console.log('User Not there')
+      console.log('USER NOT FOUND')
    }
 }
 
