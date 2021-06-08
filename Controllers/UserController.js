@@ -28,12 +28,13 @@ exports.RegisterUser = async (req, res) => {
 exports.LoginUser = async(req, res) => {
    const {email, password} = req.body
    const foundUser = await User.findOne({email})
-   const isValid = await foundUser.isPasswordValid(password)
    if(foundUser) {
+      const isValid = await foundUser.isPasswordValid(password)
+      // console.log(foundUser)
       if(isValid) {
          res.json({
-            user, 
-            token: generateAccessToken(userExists)
+            foundUser, 
+            token: generateAccessToken(foundUser)
          })
       } else {
          res.json('Invalid Password')
