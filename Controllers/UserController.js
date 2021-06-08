@@ -29,17 +29,23 @@ exports.LoginUser = async(req, res) => {
    const {email, password} = req.body
    const foundUser = await User.findOne({email})
    const isValid = await foundUser.isPasswordValid(password)
-   if(foundUser && isValid) {
-      res.json({
-         user, 
-         token: generateAccessToken(userExists)
-      })
+   if(foundUser) {
+      if(isValid) {
+         res.json({
+            user, 
+            token: generateAccessToken(userExists)
+         })
+      } else {
+         res.json('Invalid Password')
+      }
    } else {
       console.log('USER NOT FOUND')
    }
 }
 
 const generateAccessToken = (user) => {
-   return jwt.sign({email: user.email, name: Math.round(Math.random() * 100)}, 
+   return jwt.sign({
+      user, 
+      name: Math.round(Math.random() * 100)}, 
    process.env.TOKEN_SECRET || 'UG_BILLER')
 }
