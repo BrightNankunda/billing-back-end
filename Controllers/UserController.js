@@ -30,7 +30,6 @@ exports.LoginUser = async(req, res) => {
    const foundUser = await User.findOne({email})
    if(foundUser) {
       const isValid = await foundUser.isPasswordValid(password)
-      // console.log(foundUser)
       if(isValid) {
          res.json({
             foundUser, 
