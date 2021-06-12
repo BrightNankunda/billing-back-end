@@ -4,11 +4,27 @@ const Client = require('../Models/ClientModel')
 exports.CreateClient = async (req, res) => {
    
    const {clientName} = req.body
-   try {
-      const newClient = new Client({clientName})
+   const newClient = new Client({clientName})
+   newClient.CreatedBy = req.user.id
+   try { 
       const savedClient = await newClient.save()
-      res.json(savedClient)
+      res.status(201).json(savedClient)
    } catch(error) {
       console.log(error.message)
    }
+}
+
+exports.FetchClients = async (req, res) => {
+   console.log(req.user)
+   // try {
+   //    const allClients = await Client.find()
+   //    // const allClients = await Client.find({created: req.user.id})
+   //    res.status(200).json(allClients)
+   // } catch(error) {
+   //    console.log(error.message)
+   // }
+}
+
+exports.FetchOneClient = async (req, res) => {
+   console.log(req.user)
 }

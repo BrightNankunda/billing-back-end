@@ -5,9 +5,9 @@ const ClientController = require('../Controllers/ClientController')
 
 router.post('/', ClientController.CreateClient)
 
-router.get('/', (req, res) => {
-   res.json({'message':'Trying to get all clients', ClientGetter: req.user.email, clientId: req.user._id})
-})
+router.get('/', ClientController.FetchClients)
+
+router.get('/client', ClientController.FetchOneClient)
 
 router.put('/', (req, res) => {
    res.json({'Message': 'Trying to edit client'})
