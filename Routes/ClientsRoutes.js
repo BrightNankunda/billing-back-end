@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-router.post('/', (req, res) => {
-   res.json({'message':'Trying to create a new client', ClientCreator: req.user.email, clientId: req.user._id})
-})
+const ClientController = require('../Controllers/ClientController')
+
+router.post('/', ClientController.CreateClient)
 
 router.get('/', (req, res) => {
    res.json({'message':'Trying to get all clients', ClientGetter: req.user.email, clientId: req.user._id})
