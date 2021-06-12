@@ -7,13 +7,13 @@ router.post('/', ClientController.CreateClient)
 
 router.get('/', ClientController.FetchClients)
 
-router.get('/client', ClientController.FetchOneClient)
+router.get('/:clientId', ClientController.FetchOneClient)
 
-router.put('/', (req, res) => {
+router.put('/:clientId', (req, res) => {
    res.json({'Message': 'Trying to edit client'})
 })
 
-router.delete('/', (req, res) => {
+router.delete('/clientId', (req, res) => {
    res.json({'Message': 'Trying to delete a client'})
 })
 

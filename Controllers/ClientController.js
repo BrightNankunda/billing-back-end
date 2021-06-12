@@ -26,5 +26,11 @@ exports.FetchClients = async (req, res) => {
 }
 
 exports.FetchOneClient = async (req, res) => {
-   console.log(req.user)
+   const {clientId} = req.params.id
+   console.log(req.user, 'params', req.params.id)
+   try {
+      const SingleClient = await Client.findById({clientId})
+   } catch(error) {
+      console.log(error.message)
+   }
 }
