@@ -6,7 +6,7 @@ const ClientSchema = new Schema({
       type: String,
       required: true
    },
-   createdBy: {type: Schema.Types.ObjectId, ref: 'user'},
+   createdBy: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
    createdOn: {type: Date, default: Date.now}
 })
 

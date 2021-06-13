@@ -12,8 +12,6 @@ const verifyToken = (req, res, next) => {
                console.log(err)
                res.json(err)
             }
-            // res.json(data)
-            // console.log(user)
             req.user = data
             next()
          })

@@ -45,7 +45,8 @@ exports.LoginUser = async(req, res) => {
 
 const generateAccessToken = (user) => {
    return jwt.sign({
-      user, 
+      id: user._id,
+      email: user.email, 
       name: Math.round(Math.random() * 100)}, 
    process.env.TOKEN_SECRET || 'UG_BILLER')
 }

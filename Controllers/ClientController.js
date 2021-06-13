@@ -5,7 +5,7 @@ exports.CreateClient = async (req, res) => {
    
    const {clientName} = req.body
    const newClient = new Client({clientName})
-   newClient.CreatedBy = req.user.id
+   newClient.createdBy = req.user.id
    try { 
       const savedClient = await newClient.save()
       res.status(201).json(savedClient)
@@ -15,23 +15,55 @@ exports.CreateClient = async (req, res) => {
 }
 
 exports.FetchClients = async (req, res) => {
-   console.log(req.user)
-   // try {
-   //    const allClients = await Client.find()
-   //    // const allClients = await Client.find({created: req.user.id})
-   //    res.status(200).json(allClients)
-   // } catch(error) {
-   //    console.log(error.message)
-   // }
+   try {
+      const allClients = await Client.find({createdBy: req.user.id})
+      res.status(200).json(allClients)
+   } catch(error) {
+      console.log(error.message)
+   }
 }
 
 exports.FetchOneClient = async (req, res) => {
    const {clientId} = req.params
-   console.log(req.user, 'params', req.params.id)
    try {
-      const SingleClient = await Client.findById({clientId})
+      const SingleClient = await Client.findById(clientId)
       console.log(SingleClient)
+      res.json(SingleClient)
    } catch(error) {
       console.log(error.message)
+   }
+}
+
+exports.UpdateOneClient = async (req, res) => {
+   const {clientId} = req.params
+   try {
+      const toUpdate = await Client.find({createdBy: req.user.id})
+      let toUpdateIds = []
+      for(let i = 0; i < toUpdate.length; i++) {
+         toUpdateIds.push(toUpdate[i].id)
+      }
+      const indexofSearchedClient = toUpdateIds.indexOf(clientId.toString())
+      if(indexofSearchedClient < 0) {
+         console.log('Client not found')
+      } else {
+         const updatedClient = await Client.findOneAndUpdate(clientId, req.body, 
+            {useFindAndModify: false})
+         console.log('OK, Updated Client')
+         res.json({'message': 'Client Updated'})
+      }
+   } catch(error) {
+      console.log(error.message)
+      res.status(500).json(error.message)
+   }
+}
+
+exports.DeleteOneClient = async (req, user) => {
+   const {clientId} = req.params
+   try {
+      const deletedClient = await Client.findByIdAndDelete({clientId})
+      console.log('Deleted Client', deletedClient)
+   } catch(error) {
+      console.log(error.message);
+      res.status(400).json(error.message)
    }
 }

@@ -9,12 +9,8 @@ router.get('/', ClientController.FetchClients)
 
 router.get('/:clientId', ClientController.FetchOneClient)
 
-router.put('/:clientId', (req, res) => {
-   res.json({'Message': 'Trying to edit client'})
-})
+router.put('/:clientId', ClientController.UpdateOneClient)
 
-router.delete('/clientId', (req, res) => {
-   res.json({'Message': 'Trying to delete a client'})
-})
+router.delete('/:clientId', ClientController.DeleteOneClient)
 
 module.exports = router
