@@ -2,9 +2,9 @@ const express = require('express')
 const Client = require('../Models/ClientModel')
 
 exports.CreateClient = async (req, res) => {
-   
-   const {clientName} = req.body
-   const newClient = new Client({clientName})
+
+   const {firstName, middleName, lastName, email, phoneNumber, occupation, address} = req.body
+   const newClient = new Client({firstName, middleName, lastName, email, phoneNumber, occupation, address})
    newClient.createdBy = req.user.id
    try { 
       const savedClient = await newClient.save()
@@ -16,53 +16,72 @@ exports.CreateClient = async (req, res) => {
 
 exports.FetchClients = async (req, res) => {
    try {
-      const allClients = await Client.find({createdBy: req.user.id})
+      const allClients = await Client.find({
+         createdBy: req.user.id
+      })
       res.status(200).json(allClients)
-   } catch(error) {
+   } catch (error) {
       console.log(error.message)
    }
 }
 
 exports.FetchOneClient = async (req, res) => {
-   const {clientId} = req.params
+   const {
+      clientId
+   } = req.params
    try {
-      const SingleClient = await Client.findById(clientId)
+      const SingleClient = await Client.findOne({
+         id: clientId
+      }, {
+         createdBy: req.user.id
+      })
       console.log(SingleClient)
       res.json(SingleClient)
-   } catch(error) {
+   } catch (error) {
       console.log(error.message)
    }
 }
 
 exports.UpdateOneClient = async (req, res) => {
-   const {clientId} = req.params
+   const {
+      clientId
+   } = req.params
    try {
-      const toUpdate = await Client.find({createdBy: req.user.id})
+      const toUpdate = await Client.find({
+         createdBy: req.user.id
+      })
       let toUpdateIds = []
-      for(let i = 0; i < toUpdate.length; i++) {
+      for (let i = 0; i < toUpdate.length; i++) {
          toUpdateIds.push(toUpdate[i].id)
       }
       const indexofSearchedClient = toUpdateIds.indexOf(clientId.toString())
-      if(indexofSearchedClient < 0) {
+      if (indexofSearchedClient < 0) {
          console.log('Client not found')
       } else {
-         const updatedClient = await Client.findOneAndUpdate(clientId, req.body, 
-            {useFindAndModify: false})
+         const updatedClient = await Client.findByIdAndUpdate(clientId, req.body, {
+            useFindAndModify: false
+         })
          console.log('OK, Updated Client')
-         res.json({'message': 'Client Updated'})
+         res.json({
+            'message': 'Client Updated'
+         })
       }
-   } catch(error) {
+   } catch (error) {
       console.log(error.message)
       res.status(500).json(error.message)
    }
 }
 
 exports.DeleteOneClient = async (req, user) => {
-   const {clientId} = req.params
+   const {
+      clientId
+   } = req.params
    try {
-      const deletedClient = await Client.findByIdAndDelete({clientId})
+      const deletedClient = await Client.findByIdAndDelete({
+         clientId
+      })
       console.log('Deleted Client', deletedClient)
-   } catch(error) {
+   } catch (error) {
       console.log(error.message);
       res.status(400).json(error.message)
    }
