@@ -15,10 +15,10 @@ exports.RegisterUser = async (req, res) => {
          return
       }
       const newUser = new User({email, password})
-      const SavedUser = await newUser.save()
+      const AuthedUser = await newUser.save()
       res.json({
-         SavedUser, 
-         token: generateAccessToken(SavedUser)
+         AuthedUser, 
+         token: generateAccessToken(AuthedUser)
       })
    } catch(err) {
       console.log(err.message)
@@ -27,13 +27,13 @@ exports.RegisterUser = async (req, res) => {
 
 exports.LoginUser = async(req, res) => {
    const {email, password} = req.body
-   const foundUser = await User.findOne({email})
-   if(foundUser) {
-      const isValid = await foundUser.isPasswordValid(password)
+   const AuthedUser = await User.findOne({email})
+   if(AuthedUser) {
+      const isValid = await AuthedUser.isPasswordValid(password)
       if(isValid) {
          res.json({
-            foundUser, 
-            token: generateAccessToken(foundUser)
+            AuthedUser, 
+            token: generateAccessToken(AuthedUser)
          })
       } else {
          res.json('Invalid Password')
