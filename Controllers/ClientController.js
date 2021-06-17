@@ -31,9 +31,9 @@ exports.FetchOneClient = async (req, res) => {
    } = req.params
    try {
       const SingleClient = await Client.findOne({
-         id: clientId
-      }, {
-         createdBy: req.user.id
+         _id: clientId
+      // }, {
+      //    createdBy: req.user.id
       })
       console.log(SingleClient)
       res.json(SingleClient)
