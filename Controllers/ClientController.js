@@ -15,6 +15,7 @@ exports.CreateClient = async (req, res) => {
 }
 
 exports.FetchClients = async (req, res) => {
+   // console.log({'USER': req.user})
    try {
       const allClients = await Client.find({
          createdBy: req.user.id

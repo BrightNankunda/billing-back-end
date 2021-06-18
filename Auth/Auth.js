@@ -4,13 +4,14 @@ const verifyToken = (req, res, next) => {
    const authHeader = req.headers['authorization']
    if(authHeader) {
       const token = authHeader.split(' ')[1]
-      if(token === null)  {
+
+      if(token === null || undefined || '')  {
          res.status(401).json({'message': 'No Token received'})
       } else {
          jwt.verify(token, process.env.TOKEN_SECRET, (err, data) => {
             if(err) {
-               console.log(err)
-               res.json(err)
+               console.log({'TOKEN ERROR': err.message})
+               res.json({'TOKEN ERROR': err.message})
             }
             req.user = data
             next()
