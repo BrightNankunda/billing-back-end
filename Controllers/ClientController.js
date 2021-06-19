@@ -30,12 +30,13 @@ exports.FetchOneClient = async (req, res) => {
    const {
       clientId
    } = req.params
+
    try {
       const SingleClient = await Client.findOne({
          _id: clientId
-      // }, {
-      //    createdBy: req.user.id
       })
+         // }, {
+         //    createdBy: req.user.id
       console.log(SingleClient)
       res.json(SingleClient)
    } catch (error) {
@@ -48,40 +49,53 @@ exports.UpdateOneClient = async (req, res) => {
       clientId
    } = req.params
    try {
-      const toUpdate = await Client.find({
-         createdBy: req.user.id
+      const updatedClient = await Client.findByIdAndUpdate(clientId, req.body, {
+         useFindAndModify: false
       })
-      let toUpdateIds = []
-      for (let i = 0; i < toUpdate.length; i++) {
-         toUpdateIds.push(toUpdate[i].id)
-      }
-      const indexofSearchedClient = toUpdateIds.indexOf(clientId.toString())
-      if (indexofSearchedClient < 0) {
-         console.log('Client not found')
-      } else {
-         const updatedClient = await Client.findByIdAndUpdate(clientId, req.body, {
-            useFindAndModify: false
-         })
-         console.log('OK, Updated Client')
-         res.json({
-            'message': 'Client Updated'
-         })
-      }
-   } catch (error) {
+      res.status(200).json({'message': 'OK'})
+      console.log('Updated Client', 'OK')
+   } catch(error) {
       console.log(error.message)
-      res.status(500).json(error.message)
+      res.json(error.meessage)
    }
+
+   // console.log('DATA', req.body, 'ID', clientId)
+   // try {
+   //    const toUpdate = await Client.find({
+   //       createdBy: req.user.id
+   //    })
+   //    // let toUpdateIds = []
+   //    // for (let i = 0; i < toUpdate.length; i++) {
+   //    //    toUpdateIds.push(toUpdate[i].id)
+   //    // }
+   //    // const indexofSearchedClient = toUpdateIds.indexOf(clientId.toString())
+   //    // if (indexofSearchedClient < 0) {
+   //    //    console.log('Client not found')
+   //    // } else {
+   //    //    const updatedClient = await Client.findByIdAndUpdate(clientId, req.body, {
+   //    //       useFindAndModify: false
+   //    //    })
+   //    //    console.log('OK, Updated Client')
+   //    //    res.json({
+   //    //       'message': 'Client Updated'
+   //    //    })
+   //    // }
+   // } catch (error) {
+   //    console.log(error.message)
+   //    res.status(500).json(error.message)
+   // }
 }
 
-exports.DeleteOneClient = async (req, user) => {
+exports.DeleteOneClient = async (req, res) => {
    const {
       clientId
    } = req.params
    try {
-      const deletedClient = await Client.findByIdAndDelete({
-         clientId
+      const deletedClient = await Client.deleteOne({
+         _id: clientId
       })
-      console.log('Deleted Client', deletedClient)
+      res.status(200).json({'message': 'OK'})
+      console.log('Deleted Client', 'OK')
    } catch (error) {
       console.log(error.message);
       res.status(400).json(error.message)
