@@ -35,7 +35,7 @@ app.use(express.json())
 app.use(cors())
 
 //ROUTES MIDDLEWARE
-app.use('/api/bill', BillerRoutes)
+app.use('/api/bill', verifyToken, BillerRoutes)
 app.use('/api/user', UserRoutes)
 
 app.get('/api/protected', verifyToken, (req, res, next) => {
