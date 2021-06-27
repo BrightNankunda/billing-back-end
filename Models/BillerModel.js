@@ -9,7 +9,8 @@ const BillSchema = new Schema({
    registered: {type: Number, required: true},
    total: {type: Number, required: true},
    createdBy: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
-   createdOn: {type: Date, default: Date.now}
+   createdOn: {type: Date, default: Date.now},
+   createdFor: {type: String, required: true}
 })
 
 module.exports = mongoose.model('Bill', BillSchema)

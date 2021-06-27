@@ -3,7 +3,12 @@ const Schema = mongoose.Schema
 const Bill = require('../Models/BillerModel')
 
 exports.getAllBills = async (req, res) => {
-   const bills = await Bill.find({createdBy: req.user.id})
+   const {clientId} = req.body
+   
+   const bills = await Bill.find({
+      createdBy: req.user.id, 
+      createdFor: clientId
+   })
    res.json(bills)
 }
 
@@ -15,7 +20,8 @@ exports.postANewBill = (req, res) => {
       landValue, 
       registered,
       rentalType,
-      total
+      total,
+      createdFor
    } = req.body;
    
    const newBill = new Bill({
@@ -25,7 +31,8 @@ exports.postANewBill = (req, res) => {
       landValue,  
       registered,
       total,
-      createdBy: req.user.id
+      createdBy: req.user.id,
+      createdFor
       }).save()
       .then(response => {
          res.json(response)
@@ -41,11 +48,13 @@ exports.FetchABill = async (req, res) => {
    const {
       billId
    } = req.params
+   const {clientId} = req.body
 
    try {
       const SingleBill = await Bill.findOne({
          _id: billId,
-         createdBy: req.user.id
+         createdBy: req.user.id,
+         createdFor: clientId
       })
          // }, {
          //    createdBy: req.user.id
