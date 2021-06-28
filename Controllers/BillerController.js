@@ -66,7 +66,7 @@ exports.FetchABill = async (req, res) => {
       const SingleBill = await Bill.findOne({
          _id: billId,
          createdBy: req.user.id,
-         createdFor: clientId
+         // createdFor: clientId
       })
          // }, {
          //    createdBy: req.user.id
