@@ -1,5 +1,6 @@
 const express = require('express')
 const Client = require('../Models/ClientModel')
+const Bill = require('../Models/BillerModel')
 
 exports.CreateClient = async (req, res) => {
 
@@ -37,8 +38,10 @@ exports.FetchOneClient = async (req, res) => {
       })
          // }, {
          //    createdBy: req.user.id
-      console.log(SingleClient)
-      res.json(SingleClient)
+      // if(SingleClient === null) {
+         console.log(SingleClient)
+         res.json(SingleClient)
+      // } else
    } catch (error) {
       console.log(error.message)
    }
@@ -91,11 +94,27 @@ exports.DeleteOneClient = async (req, res) => {
       clientId
    } = req.params
    try {
-      const deletedClient = await Client.deleteOne({
-         _id: clientId
+      // const clientBills = await Bill.find({
+      //    createdBy: req.user.id,
+      //    createdFor: clientId
+      // })
+      const deletedClientBills = await Bill.deleteMany({
+         createdBy: req.user.id,
+         createdFor: clientId
       })
-      res.status(200).json({'message': 'OK'})
-      console.log('Deleted Client', 'OK')
+      if(deletedClientBills.ok === 1){
+         const deletedClient = await Client.deleteOne({
+            _id: clientId
+         })
+         if(deletedClient.deletedCount === 1) {
+            res.status(200).json({'message': 'OK'})
+            console.log('Deleted Client', 'OK')
+         } else {
+            res.json({"message": "Client not Deleted"})
+         }
+      }
+      // res.json(clientBills)
+
    } catch (error) {
       console.log(error.message);
       res.status(400).json(error.message)
