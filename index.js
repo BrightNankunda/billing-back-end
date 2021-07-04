@@ -9,6 +9,7 @@ const verifyToken = require('./Auth/Auth')
 const BillerRoutes = require('./Routes/BillerRoutes')
 const UserRoutes = require('./Routes/UserRoutes')
 const ClientRoutes = require('./Routes/ClientsRoutes')
+const AdvocateRoutes = require('./Routes/AdvocateRoutes')
 
 dotenv.config()
 
@@ -37,6 +38,7 @@ app.use(cors())
 //ROUTES MIDDLEWARE
 app.use('/api/bill', verifyToken, BillerRoutes)
 app.use('/api/user', UserRoutes)
+app.use('/api/advocates', verifyToken, AdvocateRoutes)
 
 app.get('/api/protected', verifyToken, (req, res, next) => {
     res.json({'message': 'protected', userEmail: req.user})
