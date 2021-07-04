@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "front-install": "npm install --prefix billing-front-end",
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "front": "cd .. && cd billing-front-end && npm start",
     "dev": "concurrently \"npm run start\" \" npm run front\" "
   },
