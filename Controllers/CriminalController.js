@@ -36,7 +36,8 @@ exports.postANewCriminal = (req, res) => {
       advocateExpenses,
       firmExpenses,
       subjectValue,
-      total
+      total,
+      clientId
    } = req.body;
    
    const newCriminal = new Criminal({
@@ -52,7 +53,7 @@ exports.postANewCriminal = (req, res) => {
       subjectValue,
       total,
       createdBy: req.user.id,
-      //createdFor: clientId
+      createdFor: clientId
       }).save()
       .then(response => {
          res.json(response)
