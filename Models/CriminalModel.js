@@ -15,7 +15,7 @@ const CriminalSchema = new Schema({
    total: {type: Number, required: true},
    createdBy: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
    createdOn: {type: Date, default: Date.now},
-   // createdFor: {type: String, required: true}
+   createdFor: {type: mongoose.Schema.Types.ObjectId, ref: 'client', required: true}
 })
 
 module.exports = mongoose.model('Criminal', CriminalSchema)
