@@ -104,14 +104,14 @@ exports.UpdateACriminal = async (req, res) => {
 }
 exports.DeleteACriminal = async (req, res) => {
    const {
-      billId
+      criminalId
    } = req.params
    try {
-      const DeletedBill = await Bill.deleteOne({
-         _id: billId
+      const DeletedCriminal = await Criminal.deleteOne({
+         _id: criminalId
       })
       res.status(200).json({'message': 'OK'})
-      console.log('Deleted Bill', 'OK')
+      console.log('Deleted Criminal', 'OK')
    } catch (error) {
       console.log(error.message);
       res.status(400).json(error.message)
