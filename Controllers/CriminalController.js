@@ -88,14 +88,14 @@ exports.FetchACriminal = async (req, res) => {
 
 exports.UpdateACriminal = async (req, res) => {
    const {
-      billId
+      criminalId
    } = req.params
    try {
-      const updatedBill = await Bill.findByIdAndUpdate(billId, req.body, {
+      const updatedBill = await Criminal.findByIdAndUpdate(criminalId, req.body, {
          useFindAndModify: false
       })
       res.status(200).json({'message': 'OK'})
-      console.log('Updated Bill', 'OK')
+      console.log('Updated Criminal', 'OK')
    } catch(error) {
       console.log(error.message)
       res.json(error.meessage)
