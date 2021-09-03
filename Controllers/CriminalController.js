@@ -22,6 +22,10 @@ exports.getAllUserCriminals = async (req, res) => {
       createdBy: req.user.id
    })
    res.status(200).json(criminals)
+   // res.status(200).json(criminals.map(criminal => (...criminal, 
+   //    criminal.closeDate: new Date(criminal.closeDate).toISOString(),
+   //    criminal.openDate: new Date(criminal.openDate).toLocaleString()
+   // )))
 }
 
 exports.postANewCriminal = (req, res) => {

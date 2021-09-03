@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs')
 
 const UserSchema = new Schema({
    email: {type: String},
-   password: {type: String}
+   password: {type: String},
+   signedIn: {type: Date, default: Date.now}
 })
 
 UserSchema.pre('save', async function(next) {
