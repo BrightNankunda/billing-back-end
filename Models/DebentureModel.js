@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 const CompanySchema = new Schema({
-   assignedTo: {type: String, required: true},
    advocateExpenses: {type: Number, required: true},
    advocateInstructions: {type: Number, required: true},
    capital: {type: Number, required: true},

@@ -30,18 +30,14 @@ exports.getAllUserCompanies = async (req, res) => {
 
 exports.postANewCompany = (req, res) => {
    const {
-      advocateExpenses,
-      advocateInstructions,
-      assignedTo,
+      selection,
       capital,
       total,
       clientId
    } = req.body;
    
    const newCompany = new Company({
-      advocateExpenses,
-      advocateInstructions,
-      assignedTo,
+      selection,
       capital,
       total,
       createdBy: req.user.id,
