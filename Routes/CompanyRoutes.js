@@ -7,8 +7,8 @@ router.get('/', CompanyController.getAllCompanies)
 router.get('/client', CompanyController.getAllClientCompanies)
 router.get('/user', CompanyController.getAllUserCompanies)
 router.post('/', CompanyController.postANewCompany)
-router.get('/:companyId', CompanyController.FetchACompany)
-router.put('/:companyId', CompanyController.UpdateACompany)
-router.delete('/:companyId', CompanyController.DeleteACompany)
+router.get('/:companyBillId', CompanyController.FetchACompany)
+router.put('/:companyBillId', CompanyController.UpdateACompany)
+router.delete('/:companyBillId', CompanyController.DeleteACompany)
 
 module.exports = router

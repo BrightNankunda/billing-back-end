@@ -1,14 +1,14 @@
 const express = require('express')
 const router = express.Router()
 
-const CompanyController = require('../Controllers/CompanyController')
+const FamilyController = require('../Controllers/FamilyController')
 
-router.get('/', CompanyController.getAllCompanies)
-router.get('/client', CompanyController.getAllClientCompanies)
-router.get('/user', CompanyController.getAllUserCompanies)
-router.post('/', CompanyController.postANewCompany)
-router.get('/:companyId', CompanyController.FetchACompany)
-router.put('/:companyId', CompanyController.UpdateACompany)
-router.delete('/:companyId', CompanyController.DeleteACompany)
+router.get('/', FamilyController.getAllFamilyBills)
+router.get('/client', FamilyController.getAllClientFamilyBills)
+router.get('/user', FamilyController.getAllUserFamilyBills)
+router.post('/', FamilyController.postANewFamilyBill)
+router.get('/:familyBillId', FamilyController.FetchAFamilyBill)
+router.put('/:familyBillId', FamilyController.UpdateAFamilyBill)
+router.delete('/:familyBillId', FamilyController.DeleteAFamilyBill)
 
 module.exports = router

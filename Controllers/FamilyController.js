@@ -1,34 +1,34 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const Company = require('../Models/CompanyModel')
+const Family = require('../Models/FamilyModel')
 
-exports.getAllCompanies = async (req, res) => {
-   const Companies = await Company.find()
-   res.status(200).json(Companies)
+exports.getAllFamilyBills = async (req, res) => {
+   const allFamilyBills = await Family.find()
+   res.status(200).json(allFamilyBills)
 }
 
-exports.getAllClientCompanies = async (req, res) => {
+exports.getAllClientFamilyBills = async (req, res) => {
    const {clientId} = req.body
    
-   const Companies = await Company.find({
+   const clientFamilyBills = await Family.find({
       createdBy: req.user.id, 
       createdFor: clientId
    })
-   res.status(200).json(Companies)
+   res.status(200).json(clientFamilyBills)
 }
 
-exports.getAllUserCompanies = async (req, res) => {
-   const Companies = await Company.find({
+exports.getAllUserFamilyBills = async (req, res) => {
+   const userFamilyBills = await Family.find({
       createdBy: req.user.id
    })
-   res.status(200).json(Companies)
-   // res.status(200).json(Companies.map(Company => (...Company, 
-   //    Company.closeDate: new Date(Company.closeDate).toISOString(),
-   //    Company.openDate: new Date(Company.openDate).toLocaleString()
+   res.status(200).json(userFamilyBills)
+   // res.status(200).json(FamilyBills.map(Family => (...Family, 
+   //    Family.closeDate: new Date(Family.closeDate).toISOString(),
+   //    Family.openDate: new Date(Family.openDate).toLocaleString()
    // )))
 }
 
-exports.postANewCompany = (req, res) => {
+exports.postANewFamilyBill = (req, res) => {
    const {
       selection,
       capital,
@@ -36,7 +36,7 @@ exports.postANewCompany = (req, res) => {
       clientId
    } = req.body;
    
-   const newCompany = new Company({
+   const newFamilyBill = new Family({
       selection,
       capital,
       total,
@@ -53,53 +53,53 @@ exports.postANewCompany = (req, res) => {
       })
 }
 
-exports.FetchACompany = async (req, res) => {
+exports.FetchAFamilyBill = async (req, res) => {
    const {
-      companyId
+      familyBillId
    } = req.params
    const {clientId} = req.body
 
    try {
-      const SingleCompany = await Company.findOne({
-         _id: companyId,
+      const SingleFamilyBill = await Family.findOne({
+         _id: familyBillId,
          createdBy: req.user.id,
          // createdFor: clientId
       })
          // }, {
          //    createdBy: req.user.id
-      console.log(SingleCompany)
-      res.json(SingleCompany)
+      console.log(SingleFamilyBill)
+      res.json(SingleFamilyBill)
    } catch (error) {
       console.log(error.message)
    }
 }
 
-exports.UpdateACompany = async (req, res) => {
+exports.UpdateAFamilyBill = async (req, res) => {
    const {
-      companyId
+      familyBillId
    } = req.params
    try {
-      const updatedBill = await Company.findByIdAndUpdate(companyId, req.body, {
+      const updatedBill = await Family.findByIdAndUpdate(familyBillId, req.body, {
          useFindAndModify: false
       })
       res.status(200).json({'message': 'OK'})
-      console.log('Updated Company', 'OK')
+      console.log('Updated Family', 'OK')
    } catch(error) {
       console.log(error.message)
       res.json(error.meessage)
    }
 
 }
-exports.DeleteACompany = async (req, res) => {
+exports.DeleteAFamilyBill = async (req, res) => {
    const {
-      companyId
+      familyBillId
    } = req.params
    try {
-      const DeletedCompany = await Company.deleteOne({
-         _id: companyId
+      const DeletedFamily = await Family.deleteOne({
+         _id: familyBillId
       })
       res.status(200).json({'message': 'OK'})
-      console.log('Deleted Company', 'OK')
+      console.log('Deleted Family', 'OK')
    } catch (error) {
       console.log(error.message);
       res.status(400).json(error.message)

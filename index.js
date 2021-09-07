@@ -14,6 +14,8 @@ const ClientRoutes = require('./Routes/ClientsRoutes')
 const CriminalRoutes = require('./Routes/CriminalRoutes')
 const AdvocateRoutes = require('./Routes/AdvocateRoutes')
 const CompanyRoutes = require('./Routes/CompanyRoutes')
+const DebentureRoutes = require('./Routes/DebentureRoutes')
+const FamilyRoutes = require('./Routes/FamilyRoutes')
 
 dotenv.config()
 
@@ -45,6 +47,8 @@ app.use('/api/bill', verifyToken, BillerRoutes)
 app.use('/api/advocates', verifyToken, AdvocateRoutes)
 app.use('/api/criminal', verifyToken, CriminalRoutes)
 app.use('/api/company', verifyToken, CompanyRoutes)
+app.use('/api/debentures', verifyToken, DebentureRoutes)
+app.use('/api/family', verifyToken, FamilyRoutes)
 
 app.get('/api/protected', verifyToken, (req, res, next) => {
     res.json({'message': 'protected', userEmail: req.user})

@@ -80,10 +80,10 @@ exports.FetchACompany = async (req, res) => {
 
 exports.UpdateACompany = async (req, res) => {
    const {
-      companyId
+      companyBillId
    } = req.params
    try {
-      const updatedBill = await Company.findByIdAndUpdate(companyId, req.body, {
+      const updatedBill = await Company.findByIdAndUpdate(companyBillId, req.body, {
          useFindAndModify: false
       })
       res.status(200).json({'message': 'OK'})
@@ -94,6 +94,7 @@ exports.UpdateACompany = async (req, res) => {
    }
 
 }
+
 exports.DeleteACompany = async (req, res) => {
    const {
       companyId
