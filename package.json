@@ -28,6 +28,7 @@
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^8.4.0",
+    "moment": "^2.29.1",
     "mongoose": "^5.12.10"
   },
   "devDependencies": {

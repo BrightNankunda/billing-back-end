@@ -16,6 +16,7 @@ const AdvocateRoutes = require('./Routes/AdvocateRoutes')
 const CompanyRoutes = require('./Routes/CompanyRoutes')
 const DebentureRoutes = require('./Routes/DebentureRoutes')
 const FamilyRoutes = require('./Routes/FamilyRoutes')
+const EventRoutes = require('./Routes/EventsRoutes')
 
 dotenv.config()
 
@@ -39,8 +40,9 @@ mongoose.connect(process.env.MONGODBURL || 'mongodb://localhost/biller', {//proc
 
 //THIRD PARTY MIDDLEWARE
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(cors())
-
+    
 //ROUTES MIDDLEWARE
 app.use('/api/user', UserRoutes)
 app.use('/api/bill', verifyToken, BillerRoutes)
@@ -49,6 +51,7 @@ app.use('/api/criminal', verifyToken, CriminalRoutes)
 app.use('/api/company', verifyToken, CompanyRoutes)
 app.use('/api/debentures', verifyToken, DebentureRoutes)
 app.use('/api/family', verifyToken, FamilyRoutes)
+app.use('/api/events', verifyToken, EventRoutes)
 
 app.get('/api/protected', verifyToken, (req, res, next) => {
     res.json({'message': 'protected', userEmail: req.user})
