@@ -17,6 +17,7 @@ const CompanyRoutes = require('./Routes/CompanyRoutes')
 const DebentureRoutes = require('./Routes/DebentureRoutes')
 const FamilyRoutes = require('./Routes/FamilyRoutes')
 const EventRoutes = require('./Routes/EventsRoutes')
+const NotesRoutes = require('./Routes/NotesRoutes')
 
 dotenv.config()
 
@@ -52,6 +53,7 @@ app.use('/api/company', verifyToken, CompanyRoutes)
 app.use('/api/debentures', verifyToken, DebentureRoutes)
 app.use('/api/family', verifyToken, FamilyRoutes)
 app.use('/api/events', verifyToken, EventRoutes)
+app.use('/api/notes', verifyToken, NotesRoutes)
 
 app.get('/api/protected', verifyToken, (req, res, next) => {
     res.json({'message': 'protected', userEmail: req.user})
