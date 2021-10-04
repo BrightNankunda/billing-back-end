@@ -27,3 +27,32 @@ exports.postANewNote = async (req, res) => {
       res.json(err)
    }
 }
+
+exports.fetchASingleNote = async (req, res) => {
+   const noteId = req.params.noteId
+   try {
+      const SingleNote = await Note.findOne({
+         _id: noteId,
+         createdBy: req.user.id,
+      })
+      console.log(SingleNote)
+      res.json(SingleNote)
+   } catch (error) {
+      console.log(error.message)
+   }
+}
+
+exports.deleteANote = async (req, res) => {
+   const noteId =  req.params.noteId
+   try {
+      const DeletedNote = await Note.deleteOne({
+         _id: noteId,
+         createdBy: req.user.id
+      })
+      res.status(200).json({'message': 'OK'})
+      console.log('Deleted Note', 'OK')
+   } catch (error) {
+      console.log(error.message);
+      res.status(404).json(error.message)
+   }
+}
